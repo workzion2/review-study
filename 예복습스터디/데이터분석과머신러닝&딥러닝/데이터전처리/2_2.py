@@ -16,6 +16,11 @@
    - 최빈값 대체: `age.fillna(age.mode()[0])`
    - 장점: 데이터 크기 유지
    - 단점: 분포 왜곡 가능
+4. **전략 3: 고급 대체 - 그룹별 대체**
+   - 성별-좌석등급별 평균값으로 대체
+   - `groupby(['sex', 'pclass']).transform(lambda x: x.fillna(x.mean()))`
+   - 더 정교한 대체 가능
+   - 각 그룹별 평균값 출력
    """
 import seaborn as sns
 import pandas as pd
@@ -37,9 +42,13 @@ cabin_q = cabin_null/ len(df)*100
 #feature enginering
 titanic_a= df.dropna(subset=['age'])
 # 결측치 대체
+age = df['age']
+deck = df['deck']
+embarked = df['embarked']
 df = age.fillna(age.mean())#deck, age, embarked
-fillna(age.median())
-fillna(age.mode()[0])
+df = deck.fillna(deck.median())
+df = embarked.fillna(embarked.mode()[0])
+
 
 
 if __name__ == "__main__":
