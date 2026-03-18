@@ -24,31 +24,34 @@
    """
 import seaborn as sns
 import pandas as pd
+import numpy as np
 
-df = sns.load_dataset("titanic")
+titanic = sns.load_dataset("titanic")
 #EDA
 # 시각화
-titanic_null = pd.DataFrame(df.isnull().sum())
+titanic_null = pd.DataFrame(titanic.isnull().sum())
 # 결측값 개수와 비율 계산(결측값/ 전체 row)
-tramp = df.isnull().sum() / len(df)
+tramp = titanic.isnull().sum() / len(titanic)
 #결측 갯수
-age_null = df['age'].isnull().sum() 
-cabin_null = df['deck'].isnull().sum()
+age_null = titanic['age'].isnull().sum() 
+cabin_null = titanic['deck'].isnull().sum()
 # 비율
-age_q = age_null/ len(df)*100
-cabin_q = cabin_null/ len(df)*100
+age_q = age_null/ len(titanic)*100
+cabin_q = cabin_null/ len(titanic)*100
 
 
 #feature enginering
-titanic_a= df.dropna(subset=['age'])
+titanic_a= titanic.dropna(subset=['age'])
 # 결측치 대체
-age = df['age']
-deck = df['deck']
-embarked = df['embarked']
-df = age.fillna(age.mean())#deck, age, embarked
-df = deck.fillna(deck.median())
-df = embarked.fillna(embarked.mode()[0])
+age = titanic['age']
+deck = titanic['deck']
+embarked = titanic['embarked']
+titanic['age'] = age.fillna(age.mean())#deck, age, embarked
+titanic['deck'] = deck.fillna(deck.mode()[0])
+titanic['embarked'] = embarked.fillna(embarked.mode()[0])
 
+#새로운 그룹 대체#ㄱㅡㄹㅜㅂㅂㅏㅇㅣ 블ㄹㅗㄱㅡ =
+titanic.groupby(['sex', 'pclass']).transform(lambda x: x.fillna(x.mode()[0]))
 
 
 if __name__ == "__main__":
@@ -56,5 +59,7 @@ if __name__ == "__main__":
     print(tramp)
     print(f"나이 결측치 {age_null}")
     print(f"cabin 결측치 {cabin_null}")
-    print(f"age 열 :{age_q}")
-    print(f"Cabin 열:{cabin_q}")
+    print(f"age 결측 비율 :{age_q}")
+    print(f"Cabin 결측 비율:{cabin_q}")
+    print(titanic.head())
+    print(gender_class.head())
