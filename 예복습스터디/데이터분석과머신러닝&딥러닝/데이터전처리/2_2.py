@@ -51,7 +51,7 @@ titanic['deck'] = deck.fillna(deck.mode()[0])
 titanic['embarked'] = embarked.fillna(embarked.mode()[0])
 
 #새로운 그룹 대체#ㄱㅡㄹㅜㅂㅂㅏㅇㅣ 블ㄹㅗㄱㅡ =
-titanic.groupby(['sex', 'pclass']).transform(lambda x: x.fillna(x.mode()[0]))
+#titanic.groupby(['sex', 'pclass']).transform(lambda x: x.fillna(x.mode()[0]))
 
 
 if __name__ == "__main__":
@@ -62,4 +62,4 @@ if __name__ == "__main__":
     print(f"age 결측 비율 :{age_q}")
     print(f"Cabin 결측 비율:{cabin_q}")
     print(titanic.head())
-    print(gender_class.head())
+    
