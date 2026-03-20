@@ -51,7 +51,8 @@ titanic['deck'] = deck.fillna(deck.mode()[0])
 titanic['embarked'] = embarked.fillna(embarked.mode()[0])
 
 #새로운 그룹 대체#ㄱㅡㄹㅜㅂㅂㅏㅇㅣ 블ㄹㅗㄱㅡ =
-#titanic.groupby(['sex', 'pclass']).transform(lambda x: x.fillna(x.mode()[0]))
+titanic['ageby_sub'] = titanic.groupby(['sex', 'pclass'])['age'].transform(lambda x: x.fillna(x.mean()))
+
 
 
 if __name__ == "__main__":
